@@ -1,0 +1,308 @@
+//header file
+
+#include<stdio.h> 
+
+//function declaration
+                                          
+int is_valid(int);
+int diff(int);
+int sum_of_digit(int);                                    
+void display(int,int);
+void Lucky(char *);
+void countNum(char *);
+int isInputValid(char []);
+
+
+//main calling function
+
+
+#include"head.h"
+int main(int argc, char *argv[]){
+
+    if(argc > 2){
+        printf("\n\n\**To few arguments!!**\n\n");
+        return 0;
+    }
+    else if(argc < 2){
+        printf("\n\n**Too few Arguments**\n\n");
+        return 0;
+    }
+
+
+int choice;
+
+char *filename = argv[1];
+
+
+        printf("enter your choice\n");
+        printf("\n\n1:Count_of_student\n2:Lucky_number\n");
+        scanf("%d",&choice);
+        switch(choice){
+    case 1:
+        printf("\nOutput is :\n");
+
+       //calling of function first
+
+
+        countNum(filename);
+
+        break;
+
+    case 2:
+        printf("\nOuptput is :\n");
+
+
+        //calling of second function 
+
+
+        Lucky(filename);
+        break;
+
+    default:
+        printf("You did not enter a valid choice\n");
+        break;
+
+
+        }
+
+return 0;
+}
+
+
+
+//function first
+
+#include"head.h"
+
+void countNum(char *file){
+
+   // file pionter
+
+        FILE *fin;
+
+  //initialising values used in funtion.
+
+        int N=0,P=0,i,test_c=0,t,j,c=0;
+
+
+        fin=freopen(file,"r",stdin);
+
+            if(!fin){
+                 printf("\n\n**File not found**\n\n");
+                 return 0;
+                     }
+
+     //Reading input from file.
+
+                                             
+      scanf("%d",&test_c);
+
+      for(j=0;j<test_c;j++){
+
+             scanf("%d %d",&N,&P);
+
+             for(i=0;i<N;i++){
+
+            scanf("%d",&t);
+
+                 if(t<=0){
+
+                      //counting negative numbers.
+                         
+                       c++;
+
+                     }
+
+ }
+
+//calling funtion
+
+ display(c,P);
+
+ }
+
+ fclose(fin);
+
+}
+
+// module 1 of first function
+
+#include"head.h"
+void display(int c,int p){
+
+
+
+      //calculating result
+
+
+         if(c>=p){
+              printf("ON\n"); 
+
+              }
+
+
+        else{
+          printf("OFF\n");
+            }
+}
+
+
+
+//function second
+
+#include"head.h"
+void Lucky(char *filename)                                                                               
+{
+
+    FILE *fp;
+
+    long int num=0,temp=0;
+
+    int test_c=0;
+
+    int i=0,counter=0;
+ 
+      //opening of text file
+
+     fp=freopen(filename,"r",stdin);                    
+
+    if(!fp){
+        printf("\n\n**File not found!!**\n\n");
+        return 0;}
+
+
+    scanf("%d\n",&test_c);
+
+    for(i=0; i<test_c; i++)
+    {
+
+
+       //reading of number from text file
+
+        scanf("%ld\n",&num);                       
+
+        temp=num;
+
+        //function calling to check for lucky number.
+
+        counter=is_valid(temp);                       
+
+        if(counter!=4)
+        {
+
+
+          //function calling to calculate sum of digit and maximum difference
+
+       
+            printf("%d,%d\n",diff(temp),sum_of_digit(temp));   
+
+        }
+
+
+        else
+        {
+
+            printf("NA\n");
+
+        }
+
+    }
+
+    fclose(fp);
+
+}
+
+
+
+
+//module 1 of function second
+
+
+#include"head.h"
+is_valid(num){
+
+int last_d=0,s_last=0,counter=0;
+
+
+       //checking validity of number .
+
+        while(num/10>0){
+
+              last_d=num%10;
+
+              s_last=(num/10)%10;             
+
+              num=num/10;
+
+               if(s_last>last_d){
+
+                     return 4;
+
+                     break;
+
+                     }
+
+}
+
+return 1;
+
+}
+
+
+
+
+//module 2 of function second
+
+
+#include"head.h"
+int sum_of_digit(int num){               
+
+int rem=0,sod=0;
+
+
+        //calculation of sum of digit
+
+
+            while(num>0){                       
+
+                 rem=num%10;
+
+                 sod+=rem;
+
+                 num=num/10;
+
+                        }
+return sod;
+
+}
+
+
+
+//module 3 of function second
+
+#include"head.h"
+int diff(num){
+int maxdiff=0,last_d,s_last=0,diff=0;
+
+//to check the number whether number is single digit or not
+
+if((num/10)>0){                             
+  while(num>0){
+    last_d=num%10;
+    s_last=(num/10)%10;
+    diff=last_d-s_last;
+
+  //comparing maximum difference
+
+
+    if(diff>maxdiff){                        
+        maxdiff=diff;
+    }
+    num=num/10;
+  }
+}
+return maxdiff;
+}
+
+
+
